@@ -55,19 +55,19 @@
 				<section>
 					<h2>Input</h2>
 					<ul>
-					  <li>Ability to write text with a few formatting options (h1, h2, bold, italic)</li>
-					  <li>Ability to add "modules" with custom block html (images, tables, contact people, image-galleries, poll forms)</li>
-					  <li>Have reliable data consistency for modules associated with database models (image library ids, youtube video ids etc)</li>
-					  <li>Limit to editing html structure, no styling options here</li>
+					  <li class="fragment">Ability to write text with a few formatting options (h1, h2, bold, italic, lists)</li>
+					  <li class="fragment">Ability to add "modules" with custom block html (images, videos, tables, contact people, image-galleries, poll forms)</li>
+					  <li class="fragment">Have reliable data consistency for modules associated with database models (image library ids, youtube video ids etc)</li>
+					  <li class="fragment">Limit to editing html structure, no styling options here</li>
 					</ul>
 				</section>
 				<section>
 					<h2>Output</h2>
 					<ul>
-						<li>Ability to take editor input and re-create the editable html (for editor)</li>
-						<li>Display story content with reliable look across different devises / channels (for communicate)</li>
-						<li>Ability to remove/replace unsupported modules depending on channel (no videos in emails etc)</li>
-						<li>Ability to query our api and get a machine-parsable version of story content + modules (JSON)</li>
+						<li class="fragment">Ability to take editor input and re-create the editable html (for editor)</li>
+						<li class="fragment">Display story content with reliable look across different devises / channels (for communicate)</li>
+						<li class="fragment">Ability to remove/replace unsupported modules depending on channel (no videos in emails etc)</li>
+						<li class="fragment">Ability to query our api and get a machine-parsable version of story content + modules (JSON)</li>
 					</ul>
 				</section>
 			</section>
@@ -81,17 +81,17 @@
 				<section>
 					<h2>Pros</h2>
 					<ul>
-						<li>Very easy to control input / output</li>
+						<li class="fragment">Very easy to control input / output</li>
 					</ul>
 				</section>
 				<section>
 					<h2>Cons</h2>
 					<ul>
-						<li>Not possible to accomplish undo across multiple editors?</li>
-						<li>Impossible to select across multiple modules</li>
-						<li>Have to maintain custom cursor logic across modules</li>
-						<li>Tricky to "fake" text-module surrounding other modules</li>
-						<li>Worry about race condition bugs in rendering when adding/removing modules (related to use of Ember... React would be easier)</li>
+						<li class="fragment">Not possible to accomplish undo across multiple editors?</li>
+						<li class="fragment">Impossible to select across multiple modules</li>
+						<li class="fragment">Have to maintain custom cursor logic across modules</li>
+						<li class="fragment">Tricky to "fake" text-module surrounding other modules</li>
+						<li class="fragment">Worry about race condition bugs in rendering when adding/removing modules (related to use of Ember... React would be easier)</li>
 					</ul>
 				</section>
 			</section>
@@ -105,16 +105,16 @@
 				<section>
 					<h2>Pros</h2>
 					<ul>
-						<li>Backend is trustworthy</li>
-						<li>Client can be somewhat restricted with built in options (allowed tags and attributes)</li>
+						<li class="fragment">Backend is trustworthy</li>
+						<li class="fragment">Client can be somewhat restricted with built in options (allowed tags and attributes)</li>
 					</ul>
 				</section>
 				<section>
 					<h2>Cons</h2>
 					<ul>
-						<li>Can result in a gap between client editor code and backend code</li>
-						<li>Client side hard to control (how to we prevent adding text inside an image module, what happens on delete?)</li>
-						<li>Froalas tag/attribute blocking doesn't always trigger</li>
+						<li class="fragment">Can result in a gap between client editor code and backend code</li>
+						<li class="fragment">Client side hard to control (how to we prevent adding text inside an image module, what happens on delete?)</li>
+						<li class="fragment">Froalas tag/attribute blocking doesn't always trigger</li>
 					</ul>
 				</section>
 			</section>
@@ -127,17 +127,23 @@
 				<section>
 					<h2>Pros</h2>
 					<ul>
-						<li>Everything is trustworthy</li>
-						<li>Doin it right</li>
+						<li class="fragment">Everything is trustworthy</li>
+						<li class="fragment">Doin it right</li>
 					</ul>
 				</section>
 				<section>
 					<h2>Cons</h2>
 					<ul>
-						<li>No mature open source alternatives</li>
-						<li>Time consuming to write and maintain</li>
-						<li>Limited device/browser support (no mobile, no IE)</li>
+						<li class="fragment">No mature open source alternatives</li>
+						<li class="fragment">Time consuming to write and maintain</li>
+						<li class="fragment">Limited device/browser support (no mobile, no IE)</li>
 					</ul>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>Approach 4</h2>
+					<h3>?</h3>
 				</section>
 			</section>
 		</div>
