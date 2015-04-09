@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Title</title>
+	<link rel="stylesheet" href="css/reveal.css">
+	<link rel="stylesheet" href="css/theme/default.css" id="theme">
+	<link rel="stylesheet" href="lib/css/zenburn.css">
+	<link rel="stylesheet" href="http://marketmesuite.github.io/3D-CORNER-RIBBONS/css/3d-corner-ribbons.css">
+	<style type="text/css">
+		.banner { z-index: 100 }
+		.banner .text { text-align: center; font-family: Lato, sans-serif;}
+
+		.ribbon .banner::after,
+		.ribbon .banner::before {
+			background-color: #6d1b06
+		}
+		.ribbon .text::before,
+		.ribbon .text::after,
+		.no-css-transforms .ribbon .text {
+			background-color: #a52808
+		}
+
+		pre { position: relative; }
+
+    .reveal .slides section .fragment.hidden {
+      opacity: 0;
+    }
+    .reveal .slides section .fragment.hidden.visible {
+      opacity: 1;
+    }
+    .center {
+      text-align: center;
+    }
+	</style>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			$("[data-ribbon]").each(function(i, element) {
+				var ribbonText = $(element).data().ribbon
+				var ribbonStyle = $(element).data().ribbonStyle || ""
+				var ribbon = $('<div class="ribbon '+ribbonStyle+'"><div class="banner"><div class="text">'+ribbonText+'</div></div></div>')
+				ribbon.prependTo(element)
+			})
+		})
+	</script>
+</head>
+<body>
+	<div class="reveal">
+		<div class="slides">
+			<section>
+				<section>
+					<h1>What we need</h1>
+				</section>
+				<section>
+					<h2>Input</h2>
+					<ul>
+					  <li>Ability to write text with a few formatting options (h1, h2, bold, italic)</li>
+					  <li>Ability to add "modules" with custom block html (images, tables, contact people, image-galleries, poll forms)</li>
+					  <li>Have reliable data consistency for modules associated with database models (image library ids, youtube video ids etc)</li>
+					  <li>Limit to editing html structure, no styling options here</li>
+					</ul>
+				</section>
+				<section>
+					<h2>Output</h2>
+					<ul>
+						<li>Ability to take editor input and re-create the editable html (for editor)</li>
+						<li>Display story content with reliable look across different devises / channels (for communicate)</li>
+						<li>Ability to remove/replace unsupported modules depending on channel (no videos in emails etc)</li>
+						<li>Ability to query our api and get a machine-parsable version of story content + modules (JSON)</li>
+					</ul>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>Approach 1</h2>
+					<h3>Froala for text-modules only</h3>
+					<p>Allow multiple modules but only initialize wysiwygs on text-modules.<br>
+					All other modules are custom form blocks.</p>
+				</section>
+				<section>
+					<h2>Pros</h2>
+					<ul>
+						<li>Very easy to control input / output</li>
+					</ul>
+				</section>
+				<section>
+					<h2>Cons</h2>
+					<ul>
+						<li>Not possible to accomplish undo across multiple editors?</li>
+						<li>Impossible to select across multiple modules</li>
+						<li>Have to maintain custom cursor logic across modules</li>
+						<li>Tricky to "fake" text-module surrounding other modules</li>
+						<li>Worry about race condition bugs in rendering when adding/removing modules (related to use of Ember... React would be easier)</li>
+					</ul>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>Approach 2</h2>
+					<h3>Froala with backend cleanup/serialize</h3>
+					<p>Use Froala for everything but try to control input with tag/attribute blocking, paste callback and reduced formatting options.<br>
+					Then parse generated html-blob when saving in backend to cleanup odd html that accidently ended up in the editor.</p>
+				</section>
+				<section>
+					<h2>Pros</h2>
+					<ul>
+						<li>Backend is trustworthy</li>
+						<li>Client can be somewhat restricted with built in options (allowed tags and attributes)</li>
+					</ul>
+				</section>
+				<section>
+					<h2>Cons</h2>
+					<ul>
+						<li>Can result in a gap between client editor code and backend code</li>
+						<li>Client side hard to control (how to we prevent adding text inside an image module, what happens on delete?)</li>
+						<li>Froalas tag/attribute blocking doesn't always trigger</li>
+					</ul>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>Approach 3</h2>
+					<h3>Medium</h3>
+					<p>Mediums approach to wysiwyg is to maintain complete control over input/output html.<br><br> This is accomplished by extending the normal contenteditable behaviour with custom keypress management and custom logic for inserting and deleting html.</p>
+				</section>
+				<section>
+					<h2>Pros</h2>
+					<ul>
+						<li>Everything is trustworthy</li>
+						<li>Doin it right</li>
+					</ul>
+				</section>
+				<section>
+					<h2>Cons</h2>
+					<ul>
+						<li>No mature open source alternatives</li>
+						<li>Time consuming to write and maintain</li>
+						<li>Limited device/browser support (no mobile, no IE)</li>
+					</ul>
+				</section>
+			</section>
+		</div>
+	</div>
+
+	<script src="lib/js/head.min.js"></script>
+	<script src="js/reveal.min.js"></script>
+
+	<script>
+
+	// Full list of configuration options available here:
+	// https://github.com/hakimel/reveal.js#configuration
+	Reveal.initialize({
+		width: 1140,
+    height: 900,
+		controls: true,
+		progress: true,
+		history: true,
+		center: true,
+
+		theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+		transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+		// Parallax scrolling
+		// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+		// parallaxBackgroundSize: '2100px 900px',
+
+		// Optional libraries used to extend on reveal.js
+		dependencies: [
+		{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+		{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+		{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+		{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+		{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+		{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+		]
+	});
+
+</script>
+
+</body>
+</html>
